@@ -10,7 +10,11 @@ while True:
     print("2. Search Product")
     print("3. Add Product")
     print("4. Exit")
-    choice = int(input("Enter your choice:"))
+    try:
+        choice = int(input("Enter your choice:"))
+    except ValueError:
+        print("Please enter a valid choice")
+        continue
     if choice == 1:
         for product in products:
             print(product["name"], "-", product["price"], "USD, stock:", product["stock"])
@@ -19,7 +23,11 @@ while True:
             print("1. Search product by name")
             print("2. Pick from list")
             print("3. Return to the main menu")
-            method = int(input("Select an option: "))
+            try:
+                method = int(input("Select an option: "))
+            except ValueError:
+                print("Please enter a valid choice")
+                continue
             if method == 1:
                 search = input("Enter the product name: ")
                 found = False
@@ -35,20 +43,30 @@ while True:
                     for i in range(len(products)):
                         print(str(i+1) + "." + products[i]["name"])
                     print(str(len(products)+1) + ".Exit")
-                    selection = int(input("Please select the available option:"))
+                    try:
+                        selection = int(input("Please select the available option:"))
+                    except ValueError:
+                        print("Please enter a valid choice")
+                        continue
                     if selection >= 1 and selection <= len(products):
                         product = products[selection - 1]
                         print(product["name"], "-", product["price"], "USD, stock:", product["stock"])
                     elif selection == len(products)+1:
                         print("Return to the search menu")
                         break
+                    else
+                        print("The choice is invalid")
             elif method == 3:
                 print("Return to the main menu")
                 break
     elif choice == 3:
         newitem = input("Add the new product: ")
-        newprice = float(input("Enter the new price:"))
-        newstock = int(input("Enter the new stock:"))
+        try:
+            newprice = float(input("Enter the new price:"))
+            newstock = int(input("Enter the new stock:"))
+        except ValueError:
+            print("Please enter a valid amount")
+            continue
         products.append({"name": newitem, "price": newprice, "stock": newstock})
         print(f"{newitem}" " got added")
     elif choice == 4:
